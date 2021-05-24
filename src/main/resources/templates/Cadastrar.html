@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns="http://wwww.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="LayoutPadrao">
+
+<meta charset="UTF-8" />
+<section layout:fragment="conteudo">
+	<div th:replace="MensagemGeral"></div>
+		<div th:replace="MensagemIntegridade"></div>
+<div class="d-flex p-2" style="background-color: transparent;">
+<div class="card-body">
+	<form action="/cadastrar" method="POST">
+		<div class="container d-flex justify-content-center text-center">
+		
+		
+		<div class="mb-3 border shadow"  style="background-color: white;border-radius: 30px;">		
+		<img class="text-center login-img"src="/img/house.png" alt="" height="300px;"/><span class="brand-text">Imobija! </span>
+		<div class="brand-text">CADASTRAR</div>
+		<div class="form-group login-input  text-start">	
+		<label><small class="text-muted">E-mail</small></label>	
+			<input name="email" class="form-control" placeholder="Insira seu e-mail" required/>
+		</div>
+
+		<div class="form-group login-input text-start">
+		<label><small class="text-muted">Senha</small></label>
+			<input type="password" name="password" class="form-control" placeholder="Insira sua senha" required/>
+		</div>
+		
+		<div class="form-group login-input text-start">
+		<label><small class="text-muted">Primeiro Nome</small></label>
+			<input type="text" name="firstName" class="form-control" placeholder="Insira seu primeiro nome" required/>
+		</div>
+		
+		<div class="form-group login-input text-start">
+		<label><small class="text-muted">Último Nome</small></label>
+			<input type="text" name="lastName" class="form-control" placeholder="Insira seu último nome" required/>
+		</div>
+		
+		<div class="form-group login-input">
+			<button class="btn btn-include btn-block">Cadastrar</button>
+		</div>
+		</div>
+	
+	</form>
+</div>
+</div>
+
+</div>
+</section>
+</html>

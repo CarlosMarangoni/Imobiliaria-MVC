@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns="http://wwww.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+
+
+	<div class="alert alert-danger" role="alert"
+		th:if=${!#strings.isEmpty(mensagemIntegridade)}>
+		<span th:text="${mensagemIntegridade}"></span>
+		<!--  MENSAGEM DE SUCESSO CASO CADASTRADO CORRETAMENTE -->
+	</div>
+
+
+</html>
+	

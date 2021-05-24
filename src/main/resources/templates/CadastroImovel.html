@@ -1,0 +1,118 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="LayoutPadrao">
+
+<head>
+	<title>Cadastro de Imóveis</title>
+</head>
+
+
+<section layout:fragment="conteudo">
+	<form method="POST" action="/imoveis" th:object="${imovel}" enctype="multipart/form-data">
+		<div th:replace="MensagemGeral"></div>
+		<div th:replace="MensagemErro"></div>
+		<div class="card-container">
+			<div class="card" style="width: 118rem">
+				<div class="card-header">
+					<div class="grid">
+						<div class="grid-item">
+							<h5 class="card-title">Novo imóvel</h5>
+						</div>
+						<div class="grid-item">
+							<a class="btn btn-danger" href="/imoveis/page/1" />Voltar</a>
+						</div>
+					</div>
+				</div>
+				<div class="card-body">
+					<input type="hidden" th:field="*{codigo}" />
+					<div class="font-cadastro">
+
+						<div class="mb-3 grid">
+							<div class="grid-item2">
+								<label class="col-sm-2 control-label">Categoria</label>
+								<div class="col-sm-2">
+									<select class="form-select form-select-sm mb-3" th:field="*{categoria.codigo}">
+										<option th:each="categoria : ${categorias}" th:text="${categoria.nome}"
+											th:value="${categoria.codigo}">
+									</select>
+								</div>
+								<label class="col-sm-2 control-label">Negociação</label>
+								<div class="col-sm-2">
+									<select class="form-select form-select-sm mb-3" th:field="*{negocio.codigo}">
+										<option th:each="negocio : ${negocios}" th:text="${negocio.nome}"
+											th:value="${negocio.codigo}">
+									</select>
+								</div>
+								<label class="col-sm-2 control-label">Estado</label>
+								<div class="col-sm-2">
+									<select class="form-select form-select-sm mb-3" id="estado"
+										th:field="*{estado.codigo}">
+										<option th:each="estado : ${estados}" th:text="${estado.nome}"
+											th:value="${estado.codigo}">
+									</select>
+								</div>
+								<label class="col-sm-2 control-label">Município</label>
+								<div class="col-sm-2">
+									<select class="form-select form-select-sm mb-3" id="municipio"
+										th:field="*{municipio.codigo}">
+										<option th:each="municipio : ${municipios}" th:text="${municipio.nome}"
+											th:value="${municipio.codigo}">
+									</select>
+								</div>
+								<label class="col-sm-2 control-label">Bairro</label>
+								<div class="col-sm-2">
+									<select class="form-select form-select-sm mb-3" id="bairro"
+										th:field="*{bairro.codigo}">
+										<option th:each="bairro : ${bairros}" th:text="${bairro.nome}"
+											th:value="${bairro.codigo}">
+									</select>
+								</div>
+							</div>
+							<div class="grid-item2">
+								<label class="col-sm-2">Descrição do imóvel</label>
+								<div class="col-sm-4">
+									<input class="form-control col-auto" type="text" th:field="*{descricao}">
+								</div>
+
+
+
+								<label for="valor" class="form-label">Valor</label>
+
+								<input class="form-control js-currency" style="width: 13rem;" id="valor"
+									th:field="*{valor}">
+
+
+
+
+
+								<label class="col-sm-2 control-label">Quantidade de Quartos</label>
+								<div class="col-sm-1">
+									<input class="form-control col-sm-1" type="number" th:field="*{qtdQuartos}">
+								</div>
+
+							</div>
+
+						</div>
+						<label class="col-sm-2 control-label">Imagem<br></label>
+						<input type="hidden" name="stringImagem" id="stringImagem" th:field="*{imagem}">
+
+						<input class="form-control" name="fileImage" id="fileImage"
+							type="file" accept="image/png,image/jpeg">
+
+						<p>
+							<img id="thumbnail" alt="Preview" style="max-width: 500px;">
+							<!--Mostra a preview somente se não possuir imagem cadastrada-->
+						</p>
+						<img th:src="@{${imovel.imagePath}}" style="max-width: 500px;">
+
+
+					</div>
+					<button type="submit" title="Title" class="btn btn-include" style="margin-top:10px;">Salvar</button>
+				</div>
+			</div>
+		</div>
+		</div>
+	</form>
+</section>
+
+</html>

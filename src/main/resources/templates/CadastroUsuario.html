@@ -1,0 +1,67 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="LayoutPadrao">
+
+<head>
+	<title>Cadastro de Negocios</title>
+</head>
+
+
+<section layout:fragment="conteudo">
+	<form method="POST" action="/users" th:object="${user}">
+		<div th:replace="MensagemGeral"></div>
+		<div th:replace="MensagemErro"></div>
+		<div th:replace="MensagemIntegridade"></div>
+		<div class="card-container">
+			<div class="card" style="width: 118rem">
+				<div class="card-header">
+					<div class="grid">
+						<div class="grid-item">
+							<h5 class="card-title">Novo usuário</h5>
+						</div>
+						<div class="grid-item">
+							<a class="btn btn-danger" href="/users/page/1" />Voltar</a>
+						</div>
+					</div>
+				</div>
+				<div class="card-body">
+					<input type="hidden" th:field="*{id}" />
+					<div class="font-cadastro">
+						<div class="mb-3">
+							<label for="nomeNegocio" class="col-sm-2 control-label">E-mail</label>
+							<div class="col-sm-4">
+								<input type="email" class="form-control col-auto" id="nomeUsuario" th:field="*{email}" required>
+							</div>
+							<label for="nomeNegocio" class="col-sm-2 control-label">Senha</label>
+							<div class="col-sm-4">
+								<input type="password"class="form-control col-auto" id="senhaUsuario" th:field="*{password}" required>
+							</div>
+								<label for="nomeNegocio" class="col-sm-2 control-label">Primeiro nome</label>
+							<div class="col-sm-4">
+								<input class="form-control col-auto" id="primeiroNome" th:field="*{firstName}" required>
+							</div>
+
+							<label for="nomeNegocio" class="col-sm-2 control-label">Último nome</label>
+							<div class="col-sm-4" style="margin-bottom: 10px;">
+								<input class="form-control col-auto" id="ultimoNome" th:field="*{lastName}" required     >
+							</div>
+							
+							<label class="col-sm-2 control-label">Função</label>
+							<select class="form-select-sm" th:field="*{roles}" required>
+							<option value = "">Selecione um permissão</option>
+									<option th:each="role : ${listRole}" th:text="${role.nome}"
+										th:value="${role.id}">
+								</select>
+						</div>
+
+
+					</div>
+					<button type="submit" class="btn btn-include">Salvar</button>
+				</div>
+			</div>
+		</div>
+		</div>
+	</form>
+</section>
+
+</html>

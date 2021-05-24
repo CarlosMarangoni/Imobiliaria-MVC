@@ -1,0 +1,46 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="LayoutPadrao">
+
+<head>
+	<title>Cadastro de Negocios</title>
+</head>
+
+
+<section layout:fragment="conteudo">
+	<form method="POST" action="/negocios" th:object="${negocio}">
+		<div th:replace="MensagemGeral"></div>
+		<div th:replace="MensagemErro"></div>
+		<div class="card-container">
+			<div class="card" style="width: 118rem">
+				<div class="card-header">
+					<div class="grid">
+						<div class="grid-item">
+							<h5 class="card-title">Novo negocio</h5>
+						</div>
+						<div class="grid-item">
+							<a class="btn btn-danger" href="/negocios/page/1" />Voltar</a>
+						</div>
+					</div>
+				</div>
+				<div class="card-body">
+					<input type="hidden" th:field="*{codigo}" />
+					<div class="font-cadastro">
+						<div class="mb-3">
+							<label for="nomeNegocio" class="col-sm-2 control-label">Nome</label>
+							<div class="col-sm-4">
+								<input class="form-control col-auto" id="nomeNegocio" th:field="*{nome}">
+							</div>
+						</div>
+
+
+					</div>
+					<button type="submit" class="btn btn-primary">Salvar</button>
+				</div>
+			</div>
+		</div>
+		</div>
+	</form>
+</section>
+
+</html>

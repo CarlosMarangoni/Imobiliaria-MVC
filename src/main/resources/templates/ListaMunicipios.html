@@ -1,0 +1,134 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="LayoutPadrao">
+
+<head>
+	<title>Municípios</title>
+</head>
+<section layout:fragment="conteudo">
+	<div th:replace="MensagemGeral"></div>
+	<div th:replace="MensagemIntegridade"></div>
+	<div class="card-container">
+		<div th:if="${#lists.isEmpty(estados)}" class="card">
+			<div class="card-header">
+				<div class="grid">
+					<div class="grid-item">
+						<h5 class="card-title">Não é possível cadastrar um município sem um estado previamente cadastrado.</h5>
+					</div>
+					<div class="grid-item"><a class="btn btn-success" href="/estados/novo">Incluir Estado <img
+                     src="/icons/plus-circle.svg"></img></a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div th:if="${!#lists.isEmpty(estados)}" class="card" style="width: 118rem">
+			<div class="card-header">
+				<div class="grid">
+					<div class="grid-item">
+						<h5 class="card-title">Municípios</h5>
+					</div>
+					<div class="grid-item"><a class="btn btn-include" href="/municipios/novo">Incluir <img
+                     src="/icons/plus-circle.svg"></img></a>
+					</div>
+				</div>
+			</div>
+			<div class="card-body">
+				<form method="GET" class="form-horizontal" th:object="${filtro}">
+					<div th:if="${currentPage} == 1" class="form-group container-search">
+						<!-- Renderiza somente se a página for 1 -->
+						<div class="col-sm-3">
+							<div class="input-group" style="margin-bottom: 5px;">
+								<input type="search" class="form-control" th:field="*{descricao}" placeholder="Qual município está procurando?" autofocus="autofocus">
+								<div class="input-group-btn border badge filter shadow d-flex justify-content-between">
+									<div class="dropdown" style="background-color:#2eb1d3;">
+										<div id="municipiosFilter" data-bs-toggle="dropdown">
+											<button class="btn btn-light btn-custom dropdown-toggle" type="submit">
+												<img src="/icons/funnel.svg" style="height: 15px;" />
+											</button>
+										</div>
+										<ul class="dropdown-menu filterMenu" aria-labelledby="municipiosFilter">
+											<li class="itemPesq">
+												<input type="radio" id="filterCategoria" checked name="radioFilter" value="nome">
+												<label for="filterCategoria">Nome</label>
+												<br>
+											</li>
+											<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+												<li class="itemPesq">
+													<input type="radio" id="filterNome" checked name="radioFilter" value="nome">
+													<label for="filterNome">Nome</label>
+													<br>
+												</li>
+												<li class="itemPesq">
+													<input type="radio" id="filterEstado" name="radioFilter" value="estado">
+													<label for="filterEstado">Estado</label>
+												</li>
+											</ul>
+									</div>
+									<div class="float-end profile ">
+										<button class="btn btn-light btn-custom" type="submit">
+											<img src="/icons/search.svg" style="height: 18px;padding-bottom: 3px;" />
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+				</form>
+				<div class="table-responsive">
+					<table class="table table-bordered table-striped">
+						<thead>
+							<tr>
+								<th class="text-center col-sm-2">#</th>
+								<th class="text-center col-sm-4">Nome</th>
+								<th class="text-center col-sm-4">Estado</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="municipio : ${municipios}">
+								<td class="text-center" th:text="${municipio.codigo}"></td>
+								<td class="text-center" th:text="${municipio.nome}"></td>
+								<td class="text-center" th:text="${municipio.estado.nome}"></td>
+								<td class="text-center">
+									<a class="btn btn-link btn-xs" th:href="@{/municipios/{codigo}(codigo=${municipio.codigo})}" title="Editar" rel="tooltip" data-placement="top">	<span>
+														<img src="/icons/pencil.svg"
+               height=12px></img>
+													</span>
+									</a>
+									<a class="btn btn-link btn-xs" data-bs-toggle="modal" data-bs-target="#confirmacaoExclusaoModalMunic" th:attr="data-codigo=${municipio.codigo},data-nome=${municipio.nome}" title="Excluir" rel="tooltip" data-bs-placement="top">	<span><img  src="/icons/x.svg" height=16px></img></span>
+									</a>
+							</tr>
+							<tr>
+								<td colspan="7" th:if="${#lists.isEmpty(municipios)}">Nenhum município cadastrado</td>
+							</tr>
+						</tbody>
+					</table>
+					<div th:if="${totalPages > 1}">
+						<!-- Renderiza somente se tiver mais de uma página -->
+						<div class="d-flex">
+							<div class="qtdRegistros shadow">Qtd. de Registros:	<span th:text="${totalItems}"></span>
+							</div>	<span class="btn" th:each="i : ${#numbers.sequence(1,totalPages)}">
+													<a th:if="${currentPage != i}" th:href="@{'/municipios/page/' + ${i} + '/?' + ${filterParameters}}">
+														<span th:text="${i}"></span>
+							</a>	<span th:unless="${currentPage != i}" th:text="${i}"></span> &nbsp;&nbsp;</span>
+							<div class="col-sm-1">
+								<a class="btn btn-include" th:if="${currentPage < totalPages}" th:href="@{'/municipios/page/' + ${currentPage + 1} + '/?' + ${filterParameters}}">
+									<img src="/icons/seta-direita.svg" style="height:20px;padding-bottom: 4px;">
+								</a>	<span th:unless="${currentPage
+													<totalPages}">
+													</span>
+								<a class="btn btn-include" th:if="${currentPage < totalPages}" th:href="@{'/municipios/page/' + ${totalPages}+ '/?' + ${filterParameters}}">
+									<img src="/icons/setas-direitas.svg" style="height:20px;padding-bottom: 4px;">
+								</a>	<span th:unless="${currentPage
+														<totalPages}">
+														</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				</div>
+			</div>
+		</div>
+		<div th:replace="DialogoConfirmacaoExclusao"></div>
+</section>
+
+</html>

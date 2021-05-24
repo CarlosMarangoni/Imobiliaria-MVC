@@ -1,0 +1,298 @@
+body, html {
+	height: 100%;
+	background-image: url("../img/background.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+}
+	
+	
+.navbar {
+	background-image: linear-gradient(to bottom right, #456ab0, #07b2cd);
+}
+
+.navbar-brand {
+	font-size: x-large;
+	color: white;
+}
+
+.card{
+	margin-top: 20px;
+}
+
+.container-fluid div:last-child {
+  margin-left: auto;
+}
+
+#profileDropdown{
+	min-width: 300px;
+}
+
+.profile {
+	background-color: white;
+	width: 2rem;
+	height: 2rem;
+	border-radius: 50%;
+	
+}
+
+.username{
+	background-color:#2eb1d3;
+	width:11rem;
+	border-radius: 100px;
+	border-style:solid;
+	text-align: center;
+	 font-size:large;
+	 line-height: 30px;
+	 color:white;
+	 font-weight: bold;
+}
+
+.cabec-dropdown{
+	background-color:#2eb1d3;
+	margin-left:20px;
+	margin-top:0;
+	min-width: 250px;
+	
+
+}
+
+.dropdown-item{
+	color:white;
+}
+
+header {
+	background-image: url('../img/background-casa.jpg');
+	background-position:bottom;
+	text-align: center;
+	width: 100%;
+	height: auto;
+	background-size: cover;
+	background-attachment: fixed;
+	position: relative;
+	overflow: hidden;
+	border-radius: 0 0 85% 85% / 30%;
+	
+}
+
+header .overlay{
+	opacity: 1;
+	animation-name: fadeInOpacity;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+	animation-duration: 2s;
+	width: 100%;
+	height: 100%;
+	padding: 50px;
+	color: white;
+	text-shadow: 1px 1px 1px #333;
+  
+	
+}
+
+@keyframes fadeInOpacity {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+.welcome-content{
+	background-color: #2eb1d3;
+	filter:opacity(85%);
+	border-radius: 0 0 85% 85% / 30%;	
+}
+
+h1 {
+	font-family: 'Dancing Script', cursive;
+	font-size: 80px;
+	margin-bottom: 30px;
+}
+
+.round-button {
+	border: none;
+	outline: none;
+	padding: 10px 20px;
+	border-radius: 50px;
+	color: #333;
+	background: #fff;
+	margin-bottom: 50px;
+	box-shadow: 0 3px 20px 0 #0000003b;
+}
+
+.round-button:hover{
+	background-color:#2eb1d3;
+}
+
+
+.filter{
+	background-color:#2eb1d3;
+	border-radius: 100px;
+	border-style:solid;
+	text-align: center;
+	 font-size:large;
+	 color:white;
+	 font-weight: bold;
+	 
+}
+
+.qtdRegistros{
+	
+	background-color:#2eb1d3;
+	margin-left:20px;
+	border-radius: 100px;
+	color:white;
+	font-weight: bold;
+	line-height: 36px;
+	width: 12rem;
+	padding-left: 5px;
+
+}
+
+.btn-custom {
+	border-radius: 50px;
+}
+.btn-icon {
+	padding: 8px;
+	background: #ffffff;
+}
+
+.btn-include{
+	background-color: #2eb1d3;
+	color:white;
+}
+
+.filterMenu{
+	background-color:#2eb1d3;
+	margin-top:0;
+	color:white;
+	
+}
+
+.itemPesq{
+	padding-left: 15px;
+	
+}
+
+.card-imoveis{
+	max-width: 60rem;
+	min-width: 15rem;
+	min-height: 15rem;
+	max-height: 40rem;
+	border-style: solid;
+	border-width:thick;
+	border-color: #07b2cd;
+	background-color:#e6faff;
+    
+	 
+}
+
+.card-imoveis:hover{
+	filter:brightness(90%)
+	
+}
+
+.imovel-img{
+	margin-top: 15px;
+	 max-width:90%;
+	  max-height:300px;
+    width: auto;
+    height: auto;
+}
+
+.imovel-img:hover{
+	transform: scale(1.5);
+}
+
+.header-imovel{
+	margin-top: 10px;
+	justify-content: center;
+	
+}
+
+.card-title{
+	margin-top: 5px;
+	margin-bottom: 4px;
+}
+
+.container-not-found{
+	display:flex;	
+	justify-content: center;	
+	}
+
+
+thead{
+	background-image: linear-gradient(to bottom right,#07b2cd , #248bc1);
+	color:white;
+	font-weight: bold;
+}
+
+.table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
+   background-color: #e6faff;
+}
+
+body {
+	font-family: 'M PLUS Rounded 1c', sans-serif;
+}
+
+.card-container {
+	display: flex;
+	justify-content: center;
+	align-content: center;
+	margin-top: 5px;
+	margin-right: 5px;
+	margin-left: 5px;
+	margin-bottom: 5px;
+}
+
+
+.alert {
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+.grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	font-family: 'JetBrains Mono', monospace;
+}
+
+.control-label{
+	font-family: 'JetBrains Mono', monospace;
+}
+
+.grid-item:nth-child(1) {
+	padding-top: 6px;
+}
+
+.grid-item:nth-child(2) {
+	text-align: right;
+}
+
+.login-img{
+	margin: 15px;;
+	
+}
+
+.brand-text{
+	font-size: xx-large;
+	font-weight:bold ;
+	margin-right: 10px;
+}
+
+
+.login-input{
+	margin:20px;
+}
+
+
+
+
+
+th, td {
+	font-family: 'JetBrains Mono', monospace;
+	font-style: bold;
+	vertical-align: middle;
+}

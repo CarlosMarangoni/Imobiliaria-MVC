@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns="http://wwww.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<meta charset="UTF-8" />
+<div class="collapse" id="navbarToggleExternalContent">
+	<div class="bg-dark p-4">
+		<span class="text">Teste</span>
+	</div>
+</div>
+<nav class="navbar shadow">
+	<div class="container-fluid">
+		<span class="navbar-brand "> <img src="/img/house.png" alt=""
+			width="40" height="34" class="d-inline-block align-text-top">
+			Imobija!
+		</span>
+		
+		<div class="navitem-container dropdown">
+		<span class="btn btn-include" onclick="location.href = '/'">
+			Home
+		</span>	
+		<span class="btn btn-include" onclick="location.href = '/imoveis/page/1'">
+			Imóveis
+		</span>	
+		<span sec:authorize="hasAuthority('ADMIN')" class="btn btn-include dropdown-toggle" id="cadastros" data-bs-toggle="dropdown"><!--Mostra o botão somente se o usuário possuir a role ADMIN -->
+			Cadastros
+			</span>
+			<ul class="dropdown-menu dropdown-menu-end cabec-dropdown" aria-labelledby="cadastros">
+						<li><button class="dropdown-item" type="button" onclick="location.href = '/users/page/1'">Administração</button></li>
+						<li><button class="dropdown-item" type="button" onclick="location.href = '/categorias/page/1'">Cadastrar Categoria</button></li>
+						<li><button class="dropdown-item" type="button" onclick="location.href = '/negocios/page/1'">Cadastrar Negócio</button></li>
+						<li><button class="dropdown-item" type="button" onclick="location.href = '/estados/page/1'">Cadastrar Estado</button></li>
+						<li><button class="dropdown-item" type="button" onclick="location.href = '/municipios/page/1'">Cadastrar Município</button></li>
+						<li><button class="dropdown-item" type="button" onclick="location.href = '/bairros/page/1'">Cadastrar Bairro</button></li>
+						<li><button class="dropdown-item" type="button" onclick="location.href = '/imoveis/page/1'">Cadastrar Imóvel</button></li>
+					</ul>
+		
+		</div>
+		
+		
+		<div class="dropdown profile-container">
+			<form action="/logout" method="post"><!-- Form para enviar o LOGOUT -->
+			<div  sec:authorize="isAuthenticated()" class="btn text-wrap username dropdown-toggle shadow"
+				id="profileDropdown" data-bs-toggle="dropdown" >
+				<span sec:authentication="name"></span> <span class="float-end profile"> </span>
+			</div>
+			<div  sec:authorize="!isAuthenticated()" class="btn text-wrap username shadow" onclick="location.href = '/entrar'"
+				>
+				<span>Log In</span>
+			</div>
+			
+				<ul class="dropdown-menu cabec-dropdown" aria-labelledby="profileDropdown">
+					<li><button class="dropdown-item" type="submit"	>Logout</button></li>
+				</ul>
+			</form>
+		</div>
+	</div>
+
+
+</nav>
+
+  <script src="https://getbootstrap.com/docs/5.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</html>

@@ -1,0 +1,60 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="LayoutPadrao">
+
+<head>
+	<title>Cadastro de Bairros</title>
+</head>
+
+
+<section layout:fragment="conteudo">
+	<form method="POST" action="/bairros" th:object="${bairro}">
+		<div th:replace="MensagemGeral"></div>
+		<div th:replace="MensagemErro"></div>
+		<div class="card-container">
+			<div class="card" style="width: 118rem">
+				<div class="card-header">
+					<div class="grid">
+						<div class="grid-item">
+							<h5 class="card-title">Novo bairro</h5>
+						</div>
+						<div class="grid-item">
+							<a class="btn btn-danger" href="/bairros/page/1" />Voltar</a>
+						</div>
+					</div>
+				</div>
+				<div class="card-body">
+					<input type="hidden" th:field="*{codigo}" />
+					<div class="font-cadastro">
+						<div class="mb-3">
+							<label class="col-sm-2 control-label">Estado</label>
+							<div class="col-sm-2">
+								<select class="form-select form-select-sm mb-3" id="estado" th:field="*{estado.codigo}">
+									<option th:each="estado : ${estados}" th:text="${estado.nome}"
+										th:value="${estado.codigo}">
+								</select>
+							</div>
+							<label class="col-sm-2 control-label">Município</label>
+							<div class="col-sm-2">
+								<select class="form-select form-select-sm mb-3" id="municipio"
+									th:field="*{municipio.codigo}">
+									<option th:each="municipio : ${municipios}" th:text="${municipio.nome}"
+										th:value="${municipio.codigo}">
+								</select>
+							</div>
+							<label class="col-sm-2 control-label">Bairro</label>
+							<div class="col-sm-4">
+								<input class="form-control" type="text" th:field="*{nome}">
+							</div>
+						</div>
+
+
+					</div>
+					<button type="submit" class="btn btn-primary">Salvar</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</section>
+
+</html>

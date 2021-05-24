@@ -1,0 +1,182 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="LayoutPadrao">
+
+<head>
+	<title>Imóveis</title>
+</head>
+<section layout:fragment="conteudo">
+	<div th:replace="MensagemGeral"></div>
+	<div th:replace="MensagemIntegridade"></div>
+	<!-- Mensagem de validação para pesquisas -->
+	<div class="card-container">
+
+		<div th:if="${#lists.isEmpty(categorias) OR #lists.isEmpty(negocios) OR #lists.isEmpty(estados) OR #lists.isEmpty(municipios) OR #lists.isEmpty(bairros)}" class="card" style="width: 90rem;">
+			<div class="card-header">
+				<div class="grid">
+					<div class="grid-item">
+						<h5 class="card-title">Favor cadastrar um(a): <br> <span th:if="${#lists.isEmpty(categorias)}">&bull;Categoria<br></span><span th:if="${#lists.isEmpty(negocios)}">&bull;Negocio<br></span>
+						<span th:if="${#lists.isEmpty(estados)}">&bull;Estado<br></span><span th:if="${#lists.isEmpty(municipios)}">&bull;Município<br></span><span th:if="${#lists.isEmpty(bairros)}"> &bull;Bairro <br></span>para prosseguir. </h5>
+					</div>
+					<div class="grid-item">
+						<a class="btn btn-success" href="/municipios" data-bs-toggle="modal" data-bs-target="#exampleModal">
+							<img src="/icons/arrow-left.svg"></img>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div th:if="${!#lists.isEmpty(categorias) AND !#lists.isEmpty(negocios) AND !#lists.isEmpty(estados) AND !#lists.isEmpty(municipios) AND !#lists.isEmpty(bairros)}" class="card" style="width: 118rem">
+			<div class="card-header">
+				<div class="grid">
+					<div class="grid-item">
+						<h5 class="card-title">Imóveis</h5>
+					</div>
+					<div sec:authorize="hasAuthority('ADMIN')" class="grid-item">	<a class="btn btn-include" href="/imoveis/novo">Incluir <img
+							src="/icons/plus-circle.svg"></img></a>
+					</div>
+				</div>
+			</div>
+			<div class="card-body">
+				<form method="GET" class="form-horizontal" th:object="${filtro}">
+					<div th:if="${currentPage} == 1" class="form-group container-search">
+						<!-- Renderiza somente se a página for 1 -->
+						<div class="col-sm-3">
+							<div class="input-group" style="margin-bottom: 5px;">
+								<input type="search" class="form-control" th:field="*{descricao}" placeholder="Qual imóvel está procurando?" autofocus="autofocus">
+								<div class="input-group-btn border badge filter shadow d-flex justify-content-between">
+									<div class="dropdown" style="background-color:#2eb1d3;">
+										<div id="imovelFilter" data-bs-toggle="dropdown">
+											<button class="btn btn-light btn-custom dropdown-toggle" type="submit">
+												<img src="/icons/funnel.svg" style="height: 15px;" />
+											</button>
+										</div>
+										<ul class="dropdown-menu filterMenu" aria-labelledby="imovelFilter">
+											<li>
+												<input type="radio" id="filterDesc" checked name="radioFilter" value="descricao">
+												<label for="filterDesc">Descrição</label>
+												<br>
+											</li>
+											<li>
+												<input type="radio" id="filterQuartos" name="radioFilter" value="quartos">
+												<label for="filterQuartos">Qtd. de Quartos</label>
+												<br>
+											</li>
+											<li>
+												<input type="radio" id="filterCategoria" name="radioFilter" value="categoria">
+												<label for="filterCategoria">Categoria</label>
+												<br>
+											</li>
+											<li>
+												<input type="radio" id="filterNegocio" name="radioFilter" value="negocio">
+												<label for="filterNegocio">Negócio</label>
+												<br>
+											</li>
+											<li>
+												<input type="radio" id="filterEstado" name="radioFilter" value="estado">
+												<label for="filterEstado">Estado</label>
+												<br>
+											</li>
+											<li>
+												<input type="radio" id="filterMunicipio" name="radioFilter" value="municipio">
+												<label for="filterMunicipio">Municipio</label>
+												<br>
+											</li>
+										</ul>
+									</div>
+									<div class="float-end profile ">
+										<button class="btn btn-light btn-custom" type="submit">
+											<img src="/icons/search.svg" style="height: 18px;padding-bottom: 3px;" />
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+				</form>
+				
+				
+				
+				
+				
+	<div class="card-group" style="margin-bottom: 15px;">
+	
+		<div class="card card-imoveis" th:each="imovel : ${imoveis}">
+			<div style="text-align: right;margin-right:5px;margin-top: 5px;" >
+				<td sec:authorize="hasAuthority('ADMIN')" class="text-center">
+						<a class="btn btn-include btn-xs" th:href="@{/imoveis/{codigo}(codigo=${imovel.codigo})}" title="Editar" rel="tooltip" data-placement="top">
+						<span>
+						<img src="/icons/pencil.svg" height=12px></img>
+					</span>
+					</a>
+					<a class="btn btn-danger btn-xs" data-bs-toggle="modal" data-bs-target="#confirmacaoExclusaoModalImovel" th:attr="data-codigo=${imovel.codigo},data-nome=${imovel.descricao}" title="Excluir" rel="tooltip" data-bs-placement="top"> 
+						<span>
+							<img  src="/icons/x.svg" height=16px></img>
+						</span>
+					</a>
+				</td>
+			</div>
+			<div class="card-content text-center">
+			<img th:src="@{${imovel.imagePath}}" class="card-img-top imovel-img" alt="Imóvel">
+			<div class="card-body" style="padding:0px 10px 10px 10px">
+				<ul class="list-group list-group-horizontal header-imovel">
+					<li class="list-group-item list-group-item-primary"th:text="${imovel.categoria.nome}" ></li>
+					<li class="list-group-item" th:text="${imovel.negocio.nome}"></li>
+					<li class="list-group-item"th:text="${imovel.estado.nome}"></li>
+				</ul>
+				<h5 class="card-title" th:text="${imovel.descricao}"></h5>
+				
+			</div>
+			
+		</div>
+			<div class="container border-top">			
+				  <div class="row row-cols-2">
+				  
+					    <div class="col"><img src="/img/bedroom.png" height="20px" style="margin-left: 5px; margin-right: 5px;"/><span th:text="${imovel.qtdQuartos}"></span></div>
+						<div class="col list-group-item-success"><img src="/img/money-icon.png" height="20px" style="margin-right: 5px;"/><span th:text="|R$ ${{imovel.valor}}|"></span></div>
+					    <div class="col">Cidade: <span th:text="${imovel.municipio.nome}"></span></div>
+					    <div class="col">Bairro: <span th:text="${imovel.bairro.nome}"></span></div>
+					    
+	  				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container-not-found border" th:if="${#lists.isEmpty(imoveis)}">
+	<div class="" style="line-height: 100px;">Nenhum imóvel encontrado.</div>
+	<div>
+	<div class=""><img src="/img/sad-face.jpg" height="100px"/></div>	
+	</div>
+	</div>
+	
+	<div th:if="${totalPages > 1}">
+						<!-- Renderiza somente se tiver mais de uma página -->
+						<div class="d-flex">
+							<div class="qtdRegistros shadow">Qtd. de Registros:	<span th:text="${totalItems}"></span>
+							</div>	<span class="btn" th:each="i : ${#numbers.sequence(1,totalPages)}">
+						<a
+									th:if="${currentPage != i}"
+									th:href="@{'/imoveis/page/' + ${i} + '/?' + ${filterParameters}}">
+							<span
+										th:text="${i}"></span>
+							</a>	<span th:unless="${currentPage != i}" th:text="${i}"></span> &nbsp;&nbsp;</span>
+							<div class="col-sm-1">
+								<a class="btn btn-include" th:if="${currentPage < totalPages}" th:href="@{'/imoveis/page/' + ${currentPage + 1} + '/?' + ${filterParameters}}">
+									<img src="/icons/seta-direita.svg" style="height:20px;padding-bottom: 4px;">
+								</a>	<span th:unless="${currentPage
+								<totalPages}">
+								</span>
+								<a class="btn btn-include" th:if="${currentPage < totalPages}" th:href="@{'/imoveis/page/' + ${totalPages}+ '/?' + ${filterParameters}}">
+									<img src="/icons/setas-direitas.svg" style="height:20px;padding-bottom: 4px;">
+								</a>	<span th:unless="${currentPage
+										<totalPages}">
+										</span>
+							</div>
+						</div>
+					</div>
+				
+				</div>
+			</div>
+		</div>
+		<div th:replace="DialogoConfirmacaoExclusao"></div>
+</section>
+
+</html>
